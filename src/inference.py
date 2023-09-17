@@ -1,28 +1,27 @@
-from collections import OrderedDict, defaultdict
-import json
 import argparse
-import sys
-import xml.etree.ElementTree as ET
+import json
 import os
 import random
-import io
+import sys
+import xml.etree.ElementTree as ET
+from collections import OrderedDict, defaultdict
 
-import torch
-from torchvision import transforms
-from PIL import Image
-from fitz import Rect
+import matplotlib.patches as patches
+# matplotlib.use('TkAgg')
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import matplotlib
-#matplotlib.use('TkAgg')
-import matplotlib.pyplot as plt
-import matplotlib.patches as patches
+import torch
+from PIL import Image
+from fitz import Rect
 from matplotlib.patches import Patch
+from torchvision import transforms
 
-from main import get_model
-import postprocess
+from src  import postprocess
+
 sys.path.append("../detr")
-from models import build_model
+# from models import build_model
+from detr.models import build_model
 
 class MaxResize(object):
     def __init__(self, max_size=800):
@@ -752,6 +751,8 @@ class TableExtractionPipeline(object):
             out_formats['crops'] = tables_crops
 
         return out_formats
+
+    [{'bbox': [0.0, 0.0, 50.0, 50.0],'text': 'First' },{'bbox': [52.0, 0.0, 102.0, 50.0], 'text': 'next' }]
 
     def recognize(self, img, tokens=None, out_objects=False, out_cells=False,
                   out_html=False, out_csv=False):
